@@ -82,12 +82,6 @@ select.font-select:focus {
     /* 聚焦时轻微上浮，增加立体感 */
 }
 
-/* 优化下拉菜单的悬浮动画，使其更丝滑 */
-select.font-select:hover {
-    background: #eef0f4;
-    border-color: #c0c9d4;
-}
-
 /* 现代化分段控制器 (黑白名单切换) */
 .segmented-control {
     position: relative;
@@ -226,26 +220,6 @@ button:active {
 
 .btn-secondary:hover {
     background-color: #f4f5f7;
-}
-
-/* 状态提示 */
-.status-msg {
-    text-align: center;
-    font-size: 13px;
-    color: var(--primary-color);
-    background: #e5f7ff;
-    border: 1px solid #b3e5ff;
-    padding: 8px;
-    border-radius: 6px;
-    opacity: 1;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(0);
-}
-
-.status-msg.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(10px);
 }
 
 @keyframes fadeIn {

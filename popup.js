@@ -4,9 +4,7 @@ const elements = {
   modeRadios: document.getElementsByName('mode'),
   domainTags: document.getElementById('domainTags'),
   domainInput: document.getElementById('domainInput'),
-  addCurrentBtn: document.getElementById('addCurrentBtn'),
-  saveBtn: document.getElementById('saveBtn'),
-  status: document.getElementById('status')
+  addCurrentBtn: document.getElementById('addCurrentBtn')
 };
 
 // 状态管理
@@ -38,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
           // 将字体名称作为 value
           option.value = font.displayName;
           option.textContent = font.displayName;
+          // [!] 核心 UX 优化：让下拉列表中的每一项直接显示该字体的样式，实现所见即所得
+          option.style.fontFamily = `"${font.displayName}"`;
           fragment.appendChild(option);
         });
         
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 监听下拉菜单变化，实时保存并触发网页无刷新更新
 elements.fontFamily.addEventListener('change', () => {
-  saveConfig(false); // 仅静默保存，不显示提示框
+  saveConfig(); 
 });
 
 // 监听黑白名单模式切换
@@ -83,7 +83,7 @@ for (const radio of elements.modeRadios) {
     currentMode = e.target.value;
     currentDomains = currentMode === 'blacklist' ? [...fullData.blacklist] :[...fullData.whitelist];
     renderTags();
-    saveConfig(false); // 模式切换后立即生效
+    saveConfig(); // 模式切换后立即生效
   });
 }
 
@@ -103,10 +103,10 @@ function renderTags() {
 // 使用事件委托监听标签的删除操作
 elements.domainTags.addEventListener('click', (e) => {
   if (e.target.classList.contains('tag-remove')) {
-    const index = parseInt(e.target.getAttribute('data-index'), 10);
+const index = parseInt(e.target.getAttribute('data-index'), 10);
     currentDomains.splice(index, 1);
     renderTags();
-    saveConfig(false); // 删除标签后立即生效
+    saveConfig(); // 删除标签后立即生效
   }
 });
 
@@ -115,10 +115,10 @@ elements.domainInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
     const newDomain = e.target.value.trim().toLowerCase();
-if (newDomain && !currentDomains.includes(newDomain)) {
+    if (newDomain && !currentDomains.includes(newDomain)) {
       currentDomains.push(newDomain);
       renderTags();
-      saveConfig(false); // 手动添加域名后立即生效
+      saveConfig(); // 手动添加域名后立即生效
       e.target.value = ''; // 清空输入框
     }
   }
@@ -137,7 +137,7 @@ elements.addCurrentBtn.addEventListener('click', async () => {
         if (!currentDomains.includes(hostname)) {
           currentDomains.push(hostname);
           renderTags();
-          saveConfig(false); // 添加当前域名后立即生效
+          saveConfig(); // 添加当前域名后立即生效
         }
       } else {
         alert('无法在浏览器内部页面应用此功能。');
@@ -149,10 +149,9 @@ elements.addCurrentBtn.addEventListener('click', async () => {
 });
 
 /**
- * 核心保存逻辑
- * @param {boolean} showStatus - 是否显示"保存成功"的 UI 提示
+ * 核心保存逻辑 (已移除冗余的 UI 提示逻辑，完全静默保存)
  */
-function saveConfig(showStatus = true) {
+function saveConfig() {
   const fontFamily = elements.fontFamily.value;
   
   if (currentMode === 'blacklist') {
@@ -169,17 +168,5 @@ function saveConfig(showStatus = true) {
   };
 
   // 写入本地存储，content.js 会监听到变化并无刷新应用
-  chrome.storage.local.set(saveData, () => {
-    if (showStatus) {
-      elements.status.classList.remove('hidden');
-      setTimeout(() => {
-        elements.status.classList.add('hidden');
-      }, 2000);
-    }
-  });
+  chrome.storage.local.set(saveData);
 }
-
-// 监听手动保存按钮
-elements.saveBtn.addEventListener('click', () => {
-  saveConfig(true);
-});
