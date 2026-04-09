@@ -1,0 +1,266 @@
+:root {
+    --primary-color: #00AEEC;
+    --primary-hover: #0098ce;
+
+    --bg-color: #f4f5f7;
+    --card-bg: #ffffff;
+    --text-main: #18191c;
+    --text-muted: #61666d;
+    --border-color: #e3e5e7;
+    --border-radius: 8px;
+    --transition-speed: 0.25s;
+}
+
+body {
+    width: 380px;
+    margin: 0;
+    padding: 16px;
+    font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--card-bg);
+    padding: 14px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border-color);
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* 下拉菜单与输入框通用样式 */
+input[type="text"],
+select.font-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    background: #f4f5f7;
+    color: var(--text-main);
+    transition: all var(--transition-speed);
+    cursor: pointer;
+}
+
+input[type="text"] {
+    cursor: text;
+}
+
+input[type="text"]:focus,
+select.font-select:focus {
+    border-color: var(--primary-color);
+    background: #ffffff;
+    box-shadow: 0 0 0 2px rgba(0, 174, 236, 0.2);
+}
+
+/* 字体实时预览区域 */
+.font-preview {
+    margin-top: 4px;
+    padding: 10px;
+    background: #f4f5f7;
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-main);
+    text-align: center;
+    border: 1px dashed #c0c9d4;
+    transition: font-family 0.1s ease;
+}
+
+/* 现代化分段控制器 (黑白名单切换) */
+.segmented-control {
+    position: relative;
+    display: flex;
+    background: #f4f5f7;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.segmented-control input[type="radio"] {
+    display: none;
+}
+
+.segmented-control label {
+    flex: 1;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 13px;
+    cursor: pointer;
+    z-index: 2;
+    color: var(--text-muted);
+    transition: color var(--transition-speed);
+}
+
+/* 选中状态统一使用主题蓝 */
+.segmented-control input[type="radio"]:checked+label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.segmented-control .slider {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.segmented-control input[value="whitelist"]:checked~.slider {
+    transform: translateX(100%);
+}
+
+/* 标签输入区域 */
+.tag-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 100px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.tag-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.tag-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+/* 标签样式：浅蓝色背景 */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    background: #e5f7ff;
+    border: 1px solid #b3e5ff;
+    color: var(--primary-color);
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 12px;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.tag-remove {
+    margin-left: 6px;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: color var(--transition-speed);
+}
+
+.tag-remove:hover {
+    color: #d81e06;
+}
+
+/* 按钮样式 */
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 174, 236, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 8px rgba(0, 174, 236, 0.4);
+}
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: #f4f5f7;
+}
+
+/* 状态提示 */
+.status-msg {
+    text-align: center;
+    font-size: 13px;
+    color: var(--primary-color);
+    background: #e5f7ff;
+    border: 1px solid #b3e5ff;
+    padding: 8px;
+    border-radius: 6px;
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+}
+
+.status-msg.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
