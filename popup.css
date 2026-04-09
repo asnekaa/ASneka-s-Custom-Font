@@ -77,20 +77,15 @@ input[type="text"]:focus,
 select.font-select:focus {
     border-color: var(--primary-color);
     background: #ffffff;
-    box-shadow: 0 0 0 2px rgba(0, 174, 236, 0.2);
+    box-shadow: 0 0 0 3px rgba(0, 174, 236, 0.15);
+    transform: translateY(-1px);
+    /* 聚焦时轻微上浮，增加立体感 */
 }
 
-/* 字体实时预览区域 */
-.font-preview {
-    margin-top: 4px;
-    padding: 10px;
-    background: #f4f5f7;
-    border-radius: 6px;
-    font-size: 14px;
-    color: var(--text-main);
-    text-align: center;
-    border: 1px dashed #c0c9d4;
-    transition: font-family 0.1s ease;
+/* 优化下拉菜单的悬浮动画，使其更丝滑 */
+select.font-select:hover {
+    background: #eef0f4;
+    border-color: #c0c9d4;
 }
 
 /* 现代化分段控制器 (黑白名单切换) */
