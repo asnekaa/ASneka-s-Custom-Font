@@ -4,7 +4,10 @@ const elements = {
   modeRadios: document.getElementsByName('mode'),
   domainTags: document.getElementById('domainTags'),
   domainInput: document.getElementById('domainInput'),
-  addCurrentBtn: document.getElementById('addCurrentBtn')
+  addCurrentBtn: document.getElementById('addCurrentBtn'),
+  exportBtn: document.getElementById('exportBtn'),
+  importBtn: document.getElementById('importBtn'),
+  importFile: document.getElementById('importFile')
 };
 
 // 状态管理
@@ -170,3 +173,69 @@ function saveConfig() {
   // 写入本地存储，content.js 会监听到变化并无刷新应用
   chrome.storage.local.set(saveData);
 }
+
+// ==========================================
+// 导入与导出功能模块
+// ==========================================
+
+// 导出配置：将当前存储的数据转换为 JSON 文件并触发下载
+elements.exportBtn.addEventListener('click', () => {
+  chrome.storage.local.get(null, (data) => {
+    // 将数据格式化为带有缩进的 JSON 字符串
+    const jsonString = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    // 创建一个隐藏的 a 标签触发下载
+    const a = document.createElement('a');
+    a.href = url;
+    // 生成带有当前日期的文件名
+    const dateStr = new Date().toISOString().slice(0, 10);
+    a.download = `asneka-font-config-${dateStr}.json`;
+    a.click();
+    
+    // 释放内存
+    URL.revokeObjectURL(url);
+  });
+});
+
+// 导入配置：点击按钮时触发隐藏的文件输入框
+elements.importBtn.addEventListener('click', () => {
+  elements.importFile.click();
+});
+
+// 监听文件选择事件并读取内容
+elements.importFile.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const importedData = JSON.parse(event.target.result);
+      
+      // [!] 基础的数据结构校验，防止导入非本插件的 JSON 文件导致崩溃
+      if (importedData.mode && importedData.fontFamily !== undefined) {
+        // 确保黑白名单是数组格式
+        importedData.blacklist = Array.isArray(importedData.blacklist) ? importedData.blacklist :[];
+        importedData.whitelist = Array.isArray(importedData.whitelist) ? importedData.whitelist :[];
+        
+        // 写入存储
+        chrome.storage.local.set(importedData, () => {
+          window.location.reload();
+        });
+      } else {
+        alert('导入失败：配置文件格式不正确！');
+      }
+    } catch (err) {
+      alert('导入失败：无法解析 JSON 文件！');
+      console.error('JSON Parse Error:', err);
+    }
+    
+    // 清空 input 的 value，确保用户下次选择同一个文件时依然能触发 change 事件
+    e.target.value = '';
+  };
+  
+  // 以文本形式读取文件
+  reader.readAsText(file);
+});
