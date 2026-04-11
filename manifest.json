@@ -3,6 +3,9 @@
     "name": "ASneka's Custom Font",
     "version": "0.1.0",
     "description": "自定义网页字体，支持黑名单与白名单模式。",
+    "icons":{
+        "128": "icon.png"
+    },
     "permissions":[
         "storage",
         "tabs",
@@ -12,6 +15,9 @@
         "<all_urls>"
     ],
     "action": {
+        "default_icon": {
+            "128": "icon.png"
+        },
         "default_popup": "popup.html"
     },
     "content_scripts": [
