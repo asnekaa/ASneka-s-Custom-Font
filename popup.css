@@ -77,9 +77,6 @@ input[type="text"]:focus,
 select.font-select:focus {
     border-color: var(--primary-color);
     background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(0, 174, 236, 0.15);
-    transform: translateY(-1px);
-    /* 聚焦时轻微上浮，增加立体感 */
 }
 
 /* 现代化分段控制器 (黑白名单切换) */
