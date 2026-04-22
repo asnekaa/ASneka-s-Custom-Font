@@ -13,6 +13,9 @@
 
 body {
     width: 380px;
+    height: 540px;
+    box-sizing: border-box;
+    overflow: hidden;
     margin: 0;
     padding: 16px;
     font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -24,6 +27,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    height: 100%;
+}
+
+.domain-list-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 header h2 {
@@ -123,18 +134,19 @@ select.font-select:focus {
     transform: translateX(100%);
 }
 
-/* 标签输入区域 */
 .tag-input-wrapper {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex: 1;
+    overflow: hidden;
 }
 
 .tag-container {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    max-height: 140px;
+    flex: 1;
     overflow-y: auto;
     padding-right: 4px;
 }
