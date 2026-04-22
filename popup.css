@@ -17,7 +17,7 @@ body {
     box-sizing: border-box;
     overflow: hidden;
     margin: 0;
-    padding: 16px;
+    padding: 12px;
     font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
@@ -26,7 +26,7 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     height: 100%;
 }
 
@@ -50,9 +50,9 @@ header h2 {
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
     background: var(--card-bg);
-    padding: 14px;
+    padding: 10px 12px;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     border: 1px solid var(--border-color);
@@ -68,7 +68,7 @@ input[type="text"],
 select.font-select {
     width: 100%;
     box-sizing: border-box;
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
     font-size: 14px;
@@ -104,7 +104,7 @@ select.font-select:focus {
 .segmented-control label {
     flex: 1;
     text-align: center;
-    padding: 6px 0;
+    padding: 4px 0;
     font-size: 13px;
     cursor: pointer;
     z-index: 2;
@@ -145,19 +145,10 @@ select.font-select:focus {
 .tag-container {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0;
     flex: 1;
     overflow-y: auto;
     padding-right: 4px;
-}
-
-.tag-container::-webkit-scrollbar {
-    width: 4px;
-}
-
-.tag-container::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 4px;
 }
 
 .tag {
@@ -167,16 +158,29 @@ select.font-select:focus {
     background: #ffffff;
     border: 1px solid var(--border-color);
     color: var(--text-main);
-    padding: 8px 12px;
-    border-radius: 6px;
+    padding: 6px 10px;
+    border-radius: 0;
+    margin-bottom: -1px;
     font-size: 13px;
     animation: fadeIn 0.2s ease-out;
     transition: all var(--transition-speed);
 }
 
+.tag:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.tag:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-bottom: 0;
+}
+
 .tag:hover {
     border-color: var(--primary-color);
     box-shadow: 0 2px 6px rgba(0, 174, 236, 0.1);
+    z-index: 1;
 }
 
 .tag-remove {
@@ -196,13 +200,13 @@ select.font-select:focus {
 
 .actions {
     display: flex;
-    gap: 10px;
-    margin-top: 4px;
+    gap: 8px;
+    margin-top: 0;
 }
 
 button {
     flex: 1;
-    padding: 10px;
+    padding: 8px;
     border: none;
     border-radius: 6px;
     font-size: 14px;
