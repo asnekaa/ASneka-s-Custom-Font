@@ -53,7 +53,6 @@ label {
     color: var(--text-muted);
 }
 
-/* 下拉菜单与输入框通用样式 */
 input[type="text"],
 select.font-select {
     width: 100%;
@@ -79,7 +78,6 @@ select.font-select:focus {
     background: #ffffff;
 }
 
-/* 现代化分段控制器 (黑白名单切换) */
 .segmented-control {
     position: relative;
     display: flex;
@@ -103,7 +101,6 @@ select.font-select:focus {
     transition: color var(--transition-speed);
 }
 
-/* 选中状态统一使用主题蓝 */
 .segmented-control input[type="radio"]:checked+label {
     color: var(--primary-color);
     font-weight: 600;
@@ -151,7 +148,6 @@ select.font-select:focus {
     border-radius: 4px;
 }
 
-/* 列表项样式：现代化卡片式列表 */
 .tag {
     display: flex;
     justify-content: space-between;
@@ -178,17 +174,14 @@ select.font-select:focus {
     font-weight: bold;
     line-height: 1;
     padding: 0 4px;
-    /* 增加点击热区 (Hitbox) 防止误触 */
     transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
 .tag-remove:hover {
     color: #d81e06;
     transform: scale(1.1);
-    /* 悬浮时轻微放大，明确操作意图 */
 }
 
-/* 按钮样式 */
 .actions {
     display: flex;
     gap: 10px;
@@ -236,7 +229,6 @@ button:active {
         opacity: 0;
         transform: scale(0.95);
     }
-
     to {
         opacity: 1;
         transform: scale(1);
