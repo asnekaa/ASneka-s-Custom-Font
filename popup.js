@@ -66,14 +66,31 @@ for (const radio of elements.modeRadios) {
   });
 }
 
-function renderTags() {
+// 增加 animateIndex 参数，默认 -1 表示不执行动画
+function renderTags(animateIndex = -1) {
   elements.domainTags.innerHTML = '';
   currentDomains.forEach((domain, index) => {
     const tag = document.createElement('span');
     tag.className = 'tag';
+    
+    // 如果当前索引等于传入的新增索引，则添加动画类
+    if (index === animateIndex) {
+      tag.classList.add('animate-new');
+    }
+    
     tag.innerHTML = `${domain} <span class="tag-remove" data-index="${index}">&times;</span>`;
     elements.domainTags.appendChild(tag);
   });
+
+  // 如果有新添加的元素，平滑滚动到列表底部
+  if (animateIndex !== -1) {
+    setTimeout(() => {
+      elements.domainTags.scrollTo({
+        top: elements.domainTags.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 10);
+  }
 }
 
 elements.domainTags.addEventListener('click', (e) => {
@@ -91,7 +108,8 @@ elements.domainInput.addEventListener('keypress', (e) => {
     const newDomain = e.target.value.trim().toLowerCase();
     if (newDomain && !currentDomains.includes(newDomain)) {
       currentDomains.push(newDomain);
-      renderTags();
+      // 传入最新添加的元素的索引以触发动画
+      renderTags(currentDomains.length - 1);
       saveConfig();
       e.target.value = '';
     }
@@ -107,7 +125,8 @@ elements.addCurrentBtn.addEventListener('click', async () => {
       if (hostname && !tab.url.startsWith('chrome://') && !tab.url.startsWith('edge://')) {
         if (!currentDomains.includes(hostname)) {
           currentDomains.push(hostname);
-          renderTags();
+          // 传入最新添加的元素的索引以触发动画
+          renderTags(currentDomains.length - 1);
           saveConfig();
         }
       } else {

@@ -1,7 +1,6 @@
 :root {
     --primary-color: #00aeec;
     --primary-hover: #0098ce;
-
     --bg-color: #f4f5f7;
     --card-bg: #ffffff;
     --text-main: #18191c;
@@ -162,8 +161,12 @@ select.font-select:focus {
     border-radius: 0;
     margin-bottom: -1px;
     font-size: 13px;
-    animation: fadeIn 0.2s ease-out;
     transition: all var(--transition-speed);
+}
+
+.tag.animate-new {
+    animation: slideIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    transform-origin: top center;
 }
 
 .tag:first-child {
@@ -240,13 +243,13 @@ button:active {
     background-color: #f4f5f7;
 }
 
-@keyframes fadeIn {
-    from {
+@keyframes slideIn {
+    0% {
         opacity: 0;
-        transform: scale(0.95);
+        transform: translateY(-10px) scale(0.98);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0) scale(1);
     }
 }
